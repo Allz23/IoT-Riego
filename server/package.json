@@ -4,7 +4,7 @@
   "description": "Backend de la aplicación de control para la domotica Dronena",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --watch src src/server.js"
   },
   "keywords": [
     "backend",
@@ -16,9 +16,11 @@
   "author": "Jacinto Acosta",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.9.4",
+    "morgan": "^1.9.1",
     "node-cron": "^2.0.3"
   },
   "devDependencies": {
