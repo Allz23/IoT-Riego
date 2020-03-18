@@ -1,7 +1,7 @@
 // Configuraciones para la conexión con la base de datos
 const mongoose = require("mongoose");
 
-const MONGODB_URI = `mongodb://127.0.0.1/domoticaNena`;
+const MONGODB_URI = `mongodb://127.0.0.1/riego`;
 
 mongoose
   .connect(MONGODB_URI, {
