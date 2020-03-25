@@ -10,6 +10,7 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
+  title: "IoT Riego | Principal",
   name: "Home",
   components: {
     HelloWorld

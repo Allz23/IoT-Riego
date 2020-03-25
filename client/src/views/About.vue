@@ -71,6 +71,7 @@ const axiosInstance = axios.create({
   }
 });
 export default {
+  title: "IoT Riego | Acerca De",
   data() {
     return {
       valvulas: [],
