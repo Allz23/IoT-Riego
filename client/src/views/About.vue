@@ -16,7 +16,7 @@
       </b-row>
 
       <!-- Tabla -->
-      <b-row>
+      <b-row align-h="center">
         <b-col>
           <b-table striped hover :items="valvulas" class="mt-3"></b-table>
         </b-col>
