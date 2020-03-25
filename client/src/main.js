@@ -11,6 +11,11 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+// Configuración de los mixins globales
+import mixinTitulo from "./mixins/changeTitle";
+
+Vue.mixin(mixinTitulo);
+
 Vue.config.productionTip = false;
 
 new Vue({
