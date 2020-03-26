@@ -2,58 +2,70 @@
   <div class="about">
     <b-container class="justify-content-center">
       <!-- Título -->
-      <b-row>
+      <b-row class="my-3">
         <b-col cols="12">
           <h1>Listado de electrovalvulas y su estado actual</h1>
         </b-col>
       </b-row>
 
-      <!-- Área de botones -->
       <b-row align-h="center">
-        <b-col cols="3">
-          <b-button class="my-3" @click="aggValvula">Añadir válvula</b-button>
-        </b-col>
-      </b-row>
-
-      <!-- Tabla -->
-      <b-row align-h="center">
-        <b-col>
+        <!-- Área de informacion de electrovalvulas -->
+        <!-- Tabla -->
+        <b-col cols="6">
           <b-table striped hover :items="valvulas" class="mt-3"></b-table>
         </b-col>
-      </b-row>
 
-      <b-row align-h="center">
-        <b-col cols="12">
-          <b-form inline>
-            <label class="sr-only" for="inline-form-input-name">Nombre:</label>
-            <b-input
-              id="inline-form-input-name"
-              class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-              placeholder="Vávlula X"
-              name="Nombre"
-              v-model="nombreValvula"
-            ></b-input>
+        <!-- Formulario para ñadir electrovalvulas -->
+        <b-col cols="6">
+          <b-row align-h="left">
+            <b-col cols="4">
+              <b-button class="my-3" @click="aggValvula"
+                >Añadir válvula</b-button
+              >
+            </b-col>
+          </b-row>
 
-            <b-form-checkbox
-              class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-              name="encendido"
-              v-model="on"
-              value="true"
-              unchecked-value="false"
-              >¿Encendida?</b-form-checkbox
-            >
-
-            <b-form-checkbox
-              class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-              name="automatico"
-              v-model="auto"
-              value="true"
-              unchecked-value="false"
-              >¿Automático?</b-form-checkbox
-            >
-
-            <b-button variant="primary">Save</b-button>
-          </b-form>
+          <b-row align-h="center">
+            <b-col cols="12">
+              <!-- Formulario para el nombre de la valvula -->
+              <b-row align-h="center">
+                <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  label-align-sm="right"
+                  label="Nombre:"
+                  label-for="input-horizontal"
+                  name="Nombre"
+                  v-model="nombreValvula"
+                  placeholder="Valvula X"
+                >
+                  <b-form-input id="input-horizontal"></b-form-input>
+                </b-form-group>
+              </b-row>
+              <!-- Checkboxes -->
+              <b-row align-h="center">
+                <b-form-checkbox
+                  class="mb-2 mr-sm-2 mb-sm-0 mx-2"
+                  name="encendido"
+                  v-model="on"
+                  value="true"
+                  unchecked-value="false"
+                  >¿Encendida?</b-form-checkbox
+                >
+              </b-row>
+              <b-row align-h="center">
+                <b-form-checkbox
+                  class="mb-2 mr-sm-2 mb-sm-0 mx-2"
+                  name="automatico"
+                  v-model="auto"
+                  value="true"
+                  unchecked-value="false"
+                  >¿Automático?</b-form-checkbox
+                >
+              </b-row>
+            </b-col>
+          </b-row>
         </b-col>
       </b-row>
     </b-container>
