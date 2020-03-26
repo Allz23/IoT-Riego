@@ -1,8 +1,15 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <b-container>
+    <div class="home">
+      <img
+        alt="App logo"
+        src="../assets/IoT - Riego (Prueba).svg"
+        width="300"
+        height="300"
+      />
+      <HelloWorld msg="¡Bienvenido al sistema de prueba!" />
+    </div>
+  </b-container>
 </template>
 
 <script>
