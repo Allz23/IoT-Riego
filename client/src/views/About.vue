@@ -12,14 +12,22 @@
         <!-- Área de informacion de electrovalvulas -->
         <!-- Tabla -->
         <b-col cols="6">
-          <b-table striped hover :items="valvulas" class="mt-3"></b-table>
+          <b-table
+            striped
+            hover
+            :items="valvulas"
+            class="mt-3 table-text"
+          ></b-table>
         </b-col>
 
         <!-- Formulario para ñadir electrovalvulas -->
         <b-col cols="6">
           <b-row align-h="left">
             <b-col cols="4">
-              <b-button class="my-3" @click="aggValvula"
+              <b-button
+                class="my-3"
+                @click="aggValvula"
+                variant="outline-success"
                 >Añadir válvula</b-button
               >
             </b-col>
@@ -45,28 +53,32 @@
               </b-row>
               <!-- Checkboxes -->
               <b-row align-h="center">
-                <b-form-checkbox
-                  class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-                  name="encendido"
-                  v-model="on"
-                  value="true"
-                  unchecked-value="false"
-                  >¿Encendida?</b-form-checkbox
-                >
-              </b-row>
-              <b-row align-h="center">
-                <b-form-checkbox
-                  class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-                  name="automatico"
-                  v-model="auto"
-                  value="true"
-                  unchecked-value="false"
-                  >¿Automático?</b-form-checkbox
-                >
+                <b-col cols="6">
+                  <b-form-checkbox
+                    class="mb-2 mr-sm-2 mb-sm-0 mx-2"
+                    name="encendido"
+                    v-model="on"
+                    value="true"
+                    unchecked-value="false"
+                    >¿Encendida?</b-form-checkbox
+                  >
+                </b-col>
+
+                <b-col cols="6">
+                  <b-form-checkbox
+                    class="mb-2 mr-sm-2 mb-sm-0 mx-2"
+                    name="automatico"
+                    v-model="auto"
+                    value="true"
+                    unchecked-value="false"
+                    >¿Automática?</b-form-checkbox
+                  >
+                </b-col>
               </b-row>
             </b-col>
           </b-row>
         </b-col>
+        <!-- Fin de la fila principal -->
       </b-row>
     </b-container>
   </div>
@@ -128,4 +140,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.table-text {
+  font-size: 0.8em;
+}
+</style>
