@@ -26,7 +26,7 @@
             <b-col cols="4">
               <b-button
                 class="my-3"
-                @click="aggValvula"
+                @click="toggleForm"
                 variant="outline-success"
                 >Añadir válvula</b-button
               >
@@ -34,48 +34,60 @@
           </b-row>
 
           <b-row align-h="center">
-            <b-col cols="12">
-              <!-- Formulario para el nombre de la valvula -->
-              <b-row align-h="center">
-                <b-form-group
-                  id="fieldset-horizontal"
-                  label-cols-sm="4"
-                  label-cols-lg="3"
-                  label-align-sm="right"
-                  label="Nombre:"
-                  label-for="input-horizontal"
-                  name="Nombre"
-                  v-model="nombreValvula"
-                  placeholder="Valvula X"
-                >
-                  <b-form-input id="input-horizontal"></b-form-input>
-                </b-form-group>
-              </b-row>
-              <!-- Checkboxes -->
-              <b-row align-h="center">
-                <b-col cols="6">
-                  <b-form-checkbox
-                    class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-                    name="encendido"
-                    v-model="on"
-                    value="true"
-                    unchecked-value="false"
-                    >¿Encendida?</b-form-checkbox
+            <b-form v-if="agregarValvula" @submit.prevent="aggValvula">
+              <b-col cols="12">
+                <!-- Formulario para el nombre de la valvula -->
+                <b-row align-h="center">
+                  <b-form-group
+                    id="fieldset-horizontal"
+                    label-cols-sm="4"
+                    label-cols-lg="3"
+                    label-align-sm="right"
+                    label="Nombre:"
+                    label-for="input-horizontal"
                   >
-                </b-col>
+                    <b-form-input
+                      placeholder="Valvula X"
+                      id="input-horizontal"
+                      name="Nombre"
+                      v-model="formValvula.nombre"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-row>
+                <!-- Checkboxes -->
+                <b-row align-h="center">
+                  <b-col cols="6">
+                    <b-form-checkbox
+                      class="mb-2 mr-sm-2 mb-sm-0 mx-2"
+                      name="encendido"
+                      v-model="formValvula.on"
+                      value="true"
+                      unchecked-value="false"
+                      >¿Encendida?</b-form-checkbox
+                    >
+                  </b-col>
+                </b-row>
 
-                <b-col cols="6">
-                  <b-form-checkbox
-                    class="mb-2 mr-sm-2 mb-sm-0 mx-2"
-                    name="automatico"
-                    v-model="auto"
-                    value="true"
-                    unchecked-value="false"
-                    >¿Automática?</b-form-checkbox
+                <b-row align-h="center">
+                  <b-col cols="6">
+                    <b-form-checkbox
+                      class="mb-2 mr-sm-2 mb-sm-0 mx-2"
+                      name="automatico"
+                      v-model="formValvula.auto"
+                      value="true"
+                      unchecked-value="false"
+                      >¿Automática?</b-form-checkbox
+                    >
+                  </b-col>
+                </b-row>
+
+                <b-row>
+                  <b-button class="mx-2 my-2" type="submit" variant="success"
+                    >Guardar</b-button
                   >
-                </b-col>
-              </b-row>
-            </b-col>
+                </b-row>
+              </b-col>
+            </b-form>
           </b-row>
         </b-col>
         <!-- Fin de la fila principal -->
@@ -85,63 +97,74 @@
 </template>
 
 <script>
-import axios from "axios";
-import qs from "qs";
-const axiosInstance = axios.create({
-  baseURL: `http://localhost:80`,
-  withCredentials: true,
-  headers: {
-    credentials: "same-origin"
-  }
-});
-export default {
-  title: "IoT Riego | Acerca De",
-  data() {
-    return {
-      valvulas: [],
-      auto: "false",
-      on: "false",
-      nombreValvula: ""
-    };
-  },
-  computed: {},
-  methods: {
-    async aggValvula() {
-      await axiosInstance({
-        method: "post",
-        url: "/aggvalvula",
-        data: qs.stringify({
-          nombre: this.nombreValvula,
-          encendido: this.on,
-          automatico: this.auto
-        }),
-        headers: {
-          "content-type": "application/x-www-form-urlencoded; charset=utf-8"
-        }
-      });
+  import axios from "axios";
+  import qs from "qs";
+  const axiosInstance = axios.create({
+    baseURL: `http://localhost:80`,
+    withCredentials: true,
+    headers: {
+      credentials: "same-origin"
     }
-  },
-  async created() {
-    try {
-      const response = await axiosInstance({
-        method: "GET",
-        url: "/",
-        headers: {
-          credentials: "same-origin"
+  });
+  export default {
+    title: "IoT Nena | Válvulas",
+    data() {
+      return {
+        agregarValvula: false,
+        valvulas: [],
+        formValvula: {
+          nombre: "",
+          on: false,
+          auto: false
         }
-      });
-      if (response.data) {
-        this.$data.valvulas = response.data.valvulas;
+      };
+    },
+    computed: {},
+    methods: {
+      toggleForm() {
+        this.agregarValvula = !this.agregarValvula;
+      },
+
+      async aggValvula() {
+        // Pasamos los datos del formulario en otra instancia del objeto.
+        const { nombre, on, auto } = this.formValvula;
+
+        console.log(`Checkbox, Auto: ${auto}`);
+        await axiosInstance({
+          method: "post",
+          url: "/aggvalvula",
+          data: qs.stringify({
+            nombre: nombre,
+            encendido: on,
+            automatico: auto
+          }),
+          headers: {
+            "content-type": "application/x-www-form-urlencoded; charset=utf-8"
+          }
+        });
       }
-    } catch (error) {
-      console.error(error);
+    },
+    async created() {
+      try {
+        const response = await axiosInstance({
+          method: "GET",
+          url: "/",
+          headers: {
+            credentials: "same-origin"
+          }
+        });
+        if (response.data) {
+          this.$data.valvulas = response.data.valvulas;
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.table-text {
-  font-size: 0.8em;
-}
+  .table-text {
+    font-size: 0.8em;
+  }
 </style>
