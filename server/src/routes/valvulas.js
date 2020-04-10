@@ -6,14 +6,23 @@ const Valvula = require("../models/Valvulas");
 
 router.post("/aggvalvula", async (req, res) => {
   try {
-    const { nombre, encendido, auto } = req.body;
-    console.log({ nombre, encendido, auto });
-    return res.json({ response: "Valvula añadida." });
+    const { nombre, encendido, automatico } = req.body;
+    console.log({ nombre, encendido, automatico });
+    const nuevaValvula = new Valvula({ nombre, encendido, automatico });
+    await nuevaValvula.save();
+
+    return res.json({ response: "Valvula añadida satisfactoriamente." });
   } catch (error) {
-    res.status(403).send(error.message);
+    return res.status(403).send(error.message);
   }
-  res.json({ mensaje: "¡Válvula añadida!" });
 });
 
+router.get("/valvulas", async (req, res) => {
+  return res.json({ response: "Todas las válvulas." });
+});
+
+router.get("/valvula", async (req, res) => {
+  return res.json({ response: "Una válvula." });
+});
 // Exportamos las rutas ----------------------------------------
 module.exports = router;
