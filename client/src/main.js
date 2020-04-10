@@ -13,7 +13,6 @@ Vue.use(IconsPlugin);
 
 // Configuración de los mixins globales -------------------
 import mixinTitulo from "./mixins/changeTitle";
-
 Vue.mixin(mixinTitulo);
 
 Vue.config.productionTip = false;
