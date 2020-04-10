@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const expSessions = require("express-session");
 const mongoStore = require("connect-mongo")(expSessions);
+const passport = require("passport");
 
 // - Configuraciones
 const app = express();
@@ -46,9 +47,19 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Variables globales
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 // Rutas
 app.use(require("./routes/index"));
 app.use(require("./routes/valvulas"));
+app.use(require("./routes/usuarios"));
 
 // Iniciamos el servidor
 app.listen(app.get("port"), () => {
