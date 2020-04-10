@@ -4,8 +4,8 @@
       alt="404"
       src="../assets/img/404 - UFO.svg"
       width="400"
-      height="400"
-      class="my-3"
+      height="300"
+      class="my-2"
     />
     <h1>Página no encontrada.</h1>
     <p class="more-info">
@@ -25,9 +25,9 @@
 </template>
 
 <script>
-export default {
-  title: "IoT Riego | Error 404"
-};
+  export default {
+    title: "IoT Riego | Error 404"
+  };
 </script>
 
 <style></style>
