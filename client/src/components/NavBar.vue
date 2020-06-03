@@ -14,6 +14,9 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
+          <b-button v-b-toggle.sidebar v-if="sesion">
+            <b-icon icon="layout-text-sidebar-reverse"></b-icon>
+          </b-button>
           <b-nav-item :to="{ path: '/' }" exact>Principal</b-nav-item>
           <b-nav-item :to="{ path: '/about' }" exact v-if="sesion"
             >Válvulas</b-nav-item
@@ -53,16 +56,16 @@
   // Importamos las acciones del módulo "usuarios"
   const {
     mapState: usuarioState,
-    mapActions: usuarioActions
+    mapActions: usuarioActions,
   } = createNamespacedHelpers("usuarios");
 
   export default {
     computed: {
-      ...usuarioState(["usuario", "sesion"])
+      ...usuarioState(["usuario", "sesion"]),
     },
     methods: {
-      ...usuarioActions(["cerrarSesion"])
-    }
+      ...usuarioActions(["cerrarSesion"]),
+    },
   };
 </script>
 
