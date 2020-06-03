@@ -63,19 +63,10 @@
 </template>
 
 <script>
+  import axiosService from "../services/AxiosService";
   import { createNamespacedHelpers } from "vuex";
   // Importamos las acciones del módulo "usuarios"
   const { mapActions: usuarioActions } = createNamespacedHelpers("usuarios");
-
-  import axios from "axios";
-  import qs from "qs";
-  const axiosInstance = axios.create({
-    baseURL: `http://localhost:80`,
-    withCredentials: true,
-    headers: {
-      credentials: "same-origin"
-    }
-  });
 
   export default {
     title: "IoT Nena | Login",
@@ -83,8 +74,8 @@
       return {
         formUsuario: {
           name: "",
-          password: ""
-        }
+          password: "",
+        },
       };
     },
     methods: {
@@ -93,17 +84,7 @@
         const { name, password } = this.formUsuario;
 
         try {
-          const dataUsuario = await axiosInstance({
-            method: "post",
-            url: "/login",
-            data: qs.stringify({
-              usuario: name,
-              contraseña: password
-            }),
-            headers: {
-              "content-type": "application/x-www-form-urlencoded; charset=utf-8"
-            }
-          });
+          const dataUsuario = await axiosService.postLogin(name, password);
 
           const {
             _id,
@@ -112,8 +93,8 @@
             admin,
             departamento,
             telefono,
-            correo
-          } = dataUsuario.data;
+            correo,
+          } = dataUsuario;
 
           const payload = {
             _id,
@@ -122,14 +103,14 @@
             admin,
             departamento,
             telefono,
-            correo
+            correo,
           };
           // Invocamos una accion para actualizar el estado de la app
           this.aggInfoUsuario(payload);
 
           this.formUsuario = {
             nombre: "",
-            contraseña: ""
+            contraseña: "",
           };
 
           this.$router.replace(
@@ -138,8 +119,8 @@
         } catch (error) {
           console.error(`Ha ocurrido un error: ${error}`);
         }
-      }
-    }
+      },
+    },
   };
 </script>
 

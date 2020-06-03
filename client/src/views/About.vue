@@ -97,15 +97,8 @@
 </template>
 
 <script>
-  import axios from "axios";
-  import qs from "qs";
-  const axiosInstance = axios.create({
-    baseURL: `http://localhost:80`,
-    withCredentials: true,
-    headers: {
-      credentials: "same-origin"
-    }
-  });
+  import axiosService from "../services/AxiosService";
+
   export default {
     title: "IoT Nena | Válvulas",
     data() {
@@ -115,8 +108,8 @@
         formValvula: {
           nombre: "",
           on: false,
-          auto: false
-        }
+          auto: false,
+        },
       };
     },
     computed: {},
@@ -129,37 +122,19 @@
         // Pasamos los datos del formulario en otra instancia del objeto.
         const { nombre, on, auto } = this.formValvula;
 
-        console.log(`Checkbox, Auto: ${auto}`);
-        await axiosInstance({
-          method: "post",
-          url: "/aggvalvula",
-          data: qs.stringify({
-            nombre: nombre,
-            encendido: on,
-            automatico: auto
-          }),
-          headers: {
-            "content-type": "application/x-www-form-urlencoded; charset=utf-8"
-          }
-        });
-      }
+        await axiosService.aggValvula(nombre, on, auto);
+      },
     },
     async created() {
       try {
-        const response = await axiosInstance({
-          method: "GET",
-          url: "/",
-          headers: {
-            credentials: "same-origin"
-          }
-        });
-        if (response.data) {
-          this.$data.valvulas = response.data.valvulas;
+        const response = await axiosService.getMainPage();
+        if (response.valvulas) {
+          this.$data.valvulas = response.valvulas;
         }
       } catch (error) {
         console.error(error);
       }
-    }
+    },
   };
 </script>
 

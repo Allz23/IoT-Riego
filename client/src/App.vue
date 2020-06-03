@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <SideBar />
     <NavBar />
     <transition name="fade" mode="out-in">
       <router-view />
@@ -9,9 +10,11 @@
 
 <script>
   import NavBar from "./components/NavBar";
+  import SideBar from "./components/Sidebar";
   export default {
     components: {
-      NavBar
+      NavBar,
+      SideBar
     }
   };
 </script>
