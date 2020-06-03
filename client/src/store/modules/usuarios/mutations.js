@@ -1,11 +1,11 @@
 // Las mutaciones actualizan el estado de la aplicacion
 export default {
-  datosUsuario: (state, payload) => {
+  DATOS_USUARIO: (state, payload) => {
     state.usuario = payload;
     state.sesion = true;
   },
-  removerUsuario: state => {
+  REMOVER_USUARIO: (state) => {
     state.usuario = {};
     state.sesion = false;
-  }
+  },
 };

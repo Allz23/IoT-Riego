@@ -4,21 +4,21 @@ const axiosInstance = axios.create({
   baseURL: `http://localhost:80`,
   withCredentials: true,
   headers: {
-    credentials: "same-origin"
-  }
+    credentials: "same-origin",
+  },
 });
 
 export default {
   aggInfoUsuario: ({ commit }, payload) => {
-    commit("datosUsuario", payload);
+    commit("DATOS_USUARIO", payload);
   },
 
   cerrarSesion: async ({ commit }) => {
     await axiosInstance({
       method: "post",
-      url: "/logout"
+      url: "/logout",
     });
 
-    commit("removerUsuario");
-  }
+    commit("REMOVER_USUARIO");
+  },
 };
