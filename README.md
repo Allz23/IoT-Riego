@@ -1,3 +1,3 @@
 # IoT-Riego (Domótica)
 
-## Backend de la aplicación desarrollada para el control del Sistema de Riego Automatizado.
+## Aplicacion web desarrollada usando el stack MEVN cuyo proposito es controlar y gestionar la domótica de un edifico (sólo riego por ahora).
